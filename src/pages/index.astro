@@ -151,6 +151,17 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
+	/* --- VARIABLES GLOBALES --- */
+	:root {
+		--bg-color: #0d0b14;
+		--accent-purple: #bf5af2;
+		--accent-cyan: #00e5ff;
+		--text-color: #ebebf5;
+		--card-bg: rgba(255, 255, 255, 0.03);
+		--glass: rgba(13, 11, 20, 0.85);
+		--neon-green: #39ff14;
+	}
+
 	/* --- NAVEGACIÓN --- */
 	nav {
 		position: fixed;
@@ -251,7 +262,7 @@ import Layout from '../layouts/Layout.astro';
 		color: var(--accent-purple);
 	}
 
-	/* CSS DEL PANEL TERMINAL */
+	/* CSS DEL PANEL TERMINAL CENTINELA */
 	.monitor-panel {
 		width: 100%;
 		max-width: 650px;
@@ -423,7 +434,7 @@ import Layout from '../layouts/Layout.astro';
 
 	/* --- RESPONSIVE --- */
 	@media (max-width: 768px) {
-		nav padding: 1rem 5%;
+		nav { padding: 1rem 5%; }
 		.menu-btn { display: flex; }
 		nav ul {
 			display: none;
