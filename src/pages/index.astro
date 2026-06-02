@@ -443,3 +443,61 @@ import Layout from '../layouts/Layout.astro';
 
 	@keyframes blink { 50% { opacity: 0; } }
 </style>
+
+/* ... (Aquí termina todo tu código de diseño anterior) ... */
+	@keyframes blink { 50% { opacity: 0; } }
+</style> <script>
+	// Lógica del Escritor Automático (Typewriter) - Versión Segura para Astro v6
+	const words = [
+		"Ciberseguridad",
+		"Administración Linux",
+		"Cultura DevOps",
+		"Arquitecturas Docker"
+	];
+	
+	// Inicializamos cada variable por separado en su propia línea para evitar errores en Vercel
+	let counter = 0;
+	let currentWord = "";
+	let isDeleting = false;
+
+	function type() {
+		const target = document.getElementById("text");
+		if (!target) return;
+
+		const fullWord = words[counter % words.length];
+		
+		if (isDeleting) {
+			currentWord = fullWord.substring(0, currentWord.length - 1);
+		} else {
+			currentWord = fullWord.substring(0, currentWord.length + 1);
+		}
+
+		target.textContent = currentWord;
+		let speed = isDeleting ? 40 : 100;
+
+		if (!isDeleting && currentWord === fullWord) {
+			speed = 2500; // Tiempo que se queda la palabra fija
+			isDeleting = true;
+		} else if (isDeleting && currentWord === "") {
+			isDeleting = false;
+			counter++;
+			speed = 400;
+		}
+		setTimeout(type, speed);
+	}
+
+	// Menú Mobile Seguro
+	const menuBtn = document.getElementById("menu-btn");
+	const navMenu = document.getElementById("nav-menu");
+
+	menuBtn?.addEventListener("click", () => {
+		navMenu?.classList.toggle("show");
+	});
+
+	document.querySelectorAll("nav a").forEach((link) => {
+		link.addEventListener("click", () => navMenu?.classList.remove("show"));
+	});
+
+	// Disparadores nativos compatibles con Astro
+	document.addEventListener("DOMContentLoaded", type);
+</script>
