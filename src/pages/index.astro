@@ -480,4 +480,49 @@ import Layout from '../layouts/Layout.astro';
 		const fullWord = words[counter % words.length];
 		
 		if (isDeleting) {
-			current
+			currentWord = fullWord.substring(0, currentWord.length - 1);
+		} else {
+			currentWord = fullWord.substring(0, currentWord.length + 1);
+		}
+		
+		target.textContent = currentWord;
+		let speed = isDeleting ? 40 : 100;
+		
+		if (!isDeleting && currentWord === fullWord) {
+			speed = 2500;
+			isDeleting = true;
+		} else if (isDeleting && currentWord === "") {
+			isDeleting = false;
+			counter++;
+			speed = 400;
+		}
+		setTimeout(type, speed);
+	}
+
+	// Lógica Segura para Menú Mobile (Hamburguesa)
+	function initMenu() {
+		const menuBtn = document.getElementById("menu-btn");
+		const navMenu = document.getElementById("nav-menu");
+
+		if (menuBtn && navMenu) {
+			menuBtn.addEventListener("click", () => {
+				navMenu.classList.toggle("show");
+				menuBtn.classList.toggle("open");
+			});
+
+			// Cerrar el menú automáticamente al dar clic en una sección
+			document.querySelectorAll("nav ul li a").forEach((link) => {
+				link.addEventListener("click", () => {
+					navMenu.classList.remove("show");
+					menuBtn.classList.remove("open");
+				});
+			});
+		}
+	}
+
+	// Inicialización adaptada al ciclo de vida de Astro
+	document.addEventListener("DOMContentLoaded", () => {
+		type();
+		initMenu();
+	});
+</script>
