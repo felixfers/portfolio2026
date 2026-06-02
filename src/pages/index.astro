@@ -1,0 +1,445 @@
+---
+import Layout from '../layouts/Layout.astro';
+// Tu portafolio ahora consume el Layout global de forma limpia
+---
+
+<Layout>
+	<nav>
+		<div class="logo">
+			<span style="color: var(--accent-cyan)">[</span>rexxar<span style="color: var(--accent-purple)">@</span>Arch<span style="color: var(--accent-cyan)">~]$</span>
+		</div>
+		<button class="menu-btn" id="menu-btn" aria-label="Menu">
+			<span></span><span></span><span></span>
+		</button>
+		<ul id="nav-menu">
+			<li><a href="#inicio">Inicio</a></li>
+			<li><a href="#habilidades">Habilidades</a></li>
+			<li><a href="#servicios">Servicios</a></li>
+			<li><a href="#contacto">Contacto</a></li>
+		</ul>
+	</nav>
+
+	<header id="inicio">
+		<div class="profile-container">
+			<div class="profile-img"></div>
+		</div>
+		<h1>Hola, soy <span class="text-gradient">Carlos Yuves</span></h1>
+		
+		<div class="typewriter-container">
+			Especialista en <span id="text"></span><span class="cursor">_</span>
+		</div>
+
+		<div class="monitor-panel">
+			<div class="panel-header">
+				<span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+				<span class="panel-title">centinela_core_metrics.sh</span>
+			</div>
+			<div class="panel-grid">
+				<div class="panel-stat">
+					<span class="label">Nodos Centinela Activos:</span>
+					<span class="value green-text">4 (EN LÍNEA)</span>
+				</div>
+				<div class="panel-stat">
+					<span class="label">Alertas Recientes:</span>
+					<span class="value red-text">2 (SSH Brute Force)</span>
+				</div>
+				<div class="panel-stat">
+					<span class="label">CARGA CPU (SERVIDOR):</span>
+					<span class="value cyan-text">4.5%</span>
+				</div>
+				<div class="panel-stat">
+					<span class="label">USO RAM (CENTINELA):</span>
+					<span class="value cyan-text">32.4 MB</span>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<section id="habilidades">
+		<h2>Technical Stack</h2>
+		<p class="section-subtitle">Íconos y herramientas personalizadas en entornos de producción</p>
+		<div class="skills-wrapper">
+			<span class="skill-tag">🐍 Python</span>
+			<span class="skill-tag">🐧 Linux (Arch/Ubuntu)</span>
+			<span class="skill-tag">🌐 Redes & Firewalls</span>
+			<span class="skill-tag">🐳 Docker & Compose</span>
+			<span class="skill-tag">☸️ Kubernetes</span>
+			<span class="skill-tag">🏠 Auto-hosting & CI/CD</span>
+		</div>
+	</section>
+
+	<section id="services">
+		<h2>Especialidades Técnicas</h2>
+		<div class="grid">
+			<div class="card">
+				<div class="card-icon">💾</div>
+				<h3>Rescate de Hardware</h3>
+				<p>Diagnóstico avanzado y recuperación de componentes físicos. Especialista en dar una segunda vida a equipos críticos y servidores obsoletos.</p>
+			</div>
+
+			<div class="card">
+				<div class="card-icon">🐧</div>
+				<h3>Despliegue de Servidores Linux</h3>
+				<p>Configuración, hardening y mantenimiento de aplicaciones en entornos Linux desde cero (Bare Metal o VPS VPS). Automatización mediante scripts robustos.</p>
+			</div>
+
+			<div class="card">
+				<div class="card-icon">🛡️</div>
+				<h3>Analista de Seguridad</h3>
+				<p>Auditoría de sistemas, detección temprana de vulnerabilidades, mitigación de ataques y protección perimetral de activos digitales.</p>
+			</div>
+		</div>
+	</section>
+
+	<section id="contacto">
+		<h2>Conectemos</h2>
+		<form action="#" method="POST" onsubmit="event.preventDefault();">
+			<input type="text" placeholder="Tu Nombre" required />
+			<input type="email" placeholder="Tu Correo Electrónico" required />
+			<textarea rows="4" placeholder="Cuéntame sobre tu proyecto o servidor..." required></textarea>
+			<button type="submit">CONSTRUYAMOS DE FORMA SEGURA</button>
+		</form>
+	</section>
+
+	<script>
+		// Lógica del Escritor Automático (Typewriter)
+		const words = [
+			"Ciberseguridad",
+			"Administración Linux",
+			"Cultura DevOps",
+			"Arquitecturas Docker"
+		];
+		let counter = 0, currentWord = "", isDeleting = false;
+
+		function type() {
+			const target = document.getElementById("text");
+			if (!target) return;
+
+			const fullWord = words[counter % words.length];
+			currentWord = isDeleting
+				? fullWord.substring(0, currentWord.length - 1)
+				: fullWord.substring(0, currentWord.length + 1);
+
+			target.textContent = currentWord;
+			let speed = isDeleting ? 40 : 100;
+
+			if (!isDeleting && currentWord === fullWord) {
+				speed = 2500; // Tiempo que se queda la palabra fija
+				isDeleting = true;
+			} else if (isDeleting && currentWord === "") {
+				isDeleting = false;
+				counter++;
+				speed = 400;
+			}
+			setTimeout(type, speed);
+		}
+
+		// Menú Mobile
+		const menuBtn = document.getElementById("menu-btn");
+		const navMenu = document.getElementById("nav-menu");
+
+		menuBtn?.addEventListener("click", () => {
+			navMenu?.classList.toggle("show");
+		});
+
+		document.querySelectorAll("nav a").forEach((link) => {
+			link.addEventListener("click", () => navMenu?.classList.remove("show"));
+		});
+
+		document.addEventListener("DOMContentLoaded", type);
+	</script>
+</Layout>
+
+<style>
+	/* --- NAVEGACIÓN --- */
+	nav {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: 1000;
+		background: var(--glass);
+		backdrop-filter: blur(15px);
+		border-bottom: 1px solid rgba(191, 90, 242, 0.15);
+		padding: 1.2rem 8%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.logo {
+		font-family: "Fira Code", monospace;
+		font-weight: 700;
+		color: var(--accent-purple);
+		font-size: 1.3rem;
+		text-shadow: 0 0 10px rgba(191, 90, 242, 0.3);
+	}
+	nav ul {
+		display: flex;
+		list-style: none;
+		gap: 2rem;
+	}
+	nav a {
+		text-decoration: none;
+		color: var(--text-color);
+		font-weight: 500;
+		transition: 0.3s;
+	}
+	nav a:hover {
+		color: var(--accent-cyan);
+		text-shadow: 0 0 10px var(--accent-cyan);
+	}
+	.menu-btn {
+		display: none;
+		cursor: pointer;
+		flex-direction: column;
+		gap: 5px;
+		border: none;
+		background: none;
+	}
+	.menu-btn span {
+		width: 25px;
+		height: 2px;
+		background: var(--accent-cyan);
+	}
+
+	/* --- HERO & PANEL --- */
+	header {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		padding: 120px 10% 60px 10%;
+	}
+	.profile-container {
+		position: relative;
+		margin-bottom: 1.5rem;
+	}
+	.profile-img {
+		width: 150px;
+		height: 150px;
+		border-radius: 50%;
+		border: 3px solid var(--accent-purple);
+		box-shadow: 0 0 30px rgba(191, 90, 242, 0.5);
+		background-image: url("/perfil.jpg");
+		background-size: cover;
+		background-position: center;
+	}
+	h1 {
+		font-size: clamp(2.3rem, 7vw, 4rem);
+		margin-bottom: 0.5rem;
+		font-weight: 800;
+	}
+	.text-gradient {
+		background: linear-gradient(45deg, var(--accent-cyan), var(--accent-purple));
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+	.typewriter-container {
+		font-family: "Fira Code", monospace;
+		font-size: 1.3rem;
+		color: var(--text-color);
+		margin-bottom: 2.5rem;
+		min-height: 1.6em;
+	}
+	#text {
+		color: var(--accent-cyan);
+		text-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+	}
+	.cursor {
+		animation: blink 0.8s infinite;
+		color: var(--accent-purple);
+	}
+
+	/* CSS DEL PANEL TERMINAL */
+	.monitor-panel {
+		width: 100%;
+		max-width: 650px;
+		background: #110f18;
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 12px;
+		box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+		text-align: left;
+		font-family: "Fira Code", monospace;
+		overflow: hidden;
+	}
+	.panel-header {
+		background: #1a1724;
+		padding: 0.7rem 1rem;
+		display: flex;
+		align-items: center;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+	}
+	.dot {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		margin-right: 6px;
+	}
+	.red { background: #ff5f56; }
+	.yellow { background: #ffbd2e; }
+	.green { background: #27c93f; }
+	.panel-title {
+		font-size: 0.85rem;
+		color: #928f9c;
+		margin-left: 10px;
+	}
+	.panel-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0.8rem;
+		padding: 1.2rem;
+	}
+	@media (min-width: 480px) {
+		.panel-grid { grid-template-columns: 1fr 1fr; }
+	}
+	.panel-stat {
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+	}
+	.label {
+		font-size: 0.8rem;
+		color: #928f9c;
+	}
+	.value {
+		font-size: 0.95rem;
+		font-weight: 500;
+	}
+	.green-text { color: var(--neon-green); text-shadow: 0 0 8px rgba(57, 255, 20, 0.3); }
+	.red-text { color: #ff5555; text-shadow: 0 0 8px rgba(255, 85, 85, 0.3); }
+	.cyan-text { color: var(--accent-cyan); }
+
+	/* --- SECCIONES GLOBALES --- */
+	section {
+		padding: 90px 10%;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+	}
+	h2 {
+		font-size: 2.3rem;
+		margin-bottom: 0.5rem;
+		text-align: center;
+		color: var(--accent-purple);
+	}
+	.section-subtitle {
+		text-align: center;
+		color: #928f9c;
+		margin-bottom: 3rem;
+		font-size: 1rem;
+	}
+
+	/* --- SKILLS --- */
+	.skills-wrapper {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 1rem;
+		max-width: 800px;
+		margin: 0 auto;
+	}
+	.skill-tag {
+		padding: 0.7rem 1.4rem;
+		background: rgba(191, 90, 242, 0.03);
+		border: 1px solid rgba(191, 90, 242, 0.3);
+		border-radius: 8px;
+		font-family: "Fira Code", monospace;
+		font-size: 0.95rem;
+		transition: 0.3s;
+	}
+	.skill-tag:hover {
+		border-color: var(--accent-cyan);
+		background: rgba(0, 229, 255, 0.05);
+		transform: translateY(-3px);
+		box-shadow: 0 5px 15px rgba(0, 229, 255, 0.2);
+	}
+
+	/* --- CARDS SERVICIOS --- */
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 2rem;
+	}
+	.card {
+		background: var(--card-bg);
+		border: 1px solid rgba(255, 255, 255, 0.05);
+		padding: 2.5rem 2rem;
+		border-radius: 16px;
+		transition: 0.4s;
+	}
+	.card-icon {
+		font-size: 2.5rem;
+		margin-bottom: 1rem;
+	}
+	.card h3 {
+		font-size: 1.3rem;
+		margin-bottom: 0.8rem;
+		color: #fff;
+	}
+	.card:hover {
+		transform: translateY(-8px);
+		border-color: var(--accent-purple);
+		box-shadow: 0 10px 30px rgba(191, 90, 242, 0.15);
+	}
+
+	/* --- CONTACTO --- */
+	form {
+		max-width: 550px;
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		gap: 1.2rem;
+	}
+	input, textarea {
+		background: #14121f;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		padding: 1.1rem;
+		color: white;
+		border-radius: 10px;
+		font-family: inherit;
+		font-size: 0.95rem;
+		transition: 0.3s;
+	}
+	input:focus, textarea:focus {
+		outline: none;
+		border-color: var(--accent-cyan);
+		box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+	}
+	button {
+		background: var(--accent-purple);
+		color: white;
+		border: none;
+		padding: 1.1rem;
+		font-weight: bold;
+		font-size: 1rem;
+		border-radius: 10px;
+		cursor: pointer;
+		letter-spacing: 0.5px;
+		transition: 0.3s;
+	}
+	button:hover {
+		filter: brightness(1.15);
+		box-shadow: 0 0 25px rgba(191, 90, 242, 0.5);
+	}
+
+	/* --- RESPONSIVE --- */
+	@media (max-width: 768px) {
+		nav padding: 1rem 5%;
+		.menu-btn { display: flex; }
+		nav ul {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100vh;
+			background: var(--bg-color);
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			gap: 2.5rem;
+		}
+		nav ul.show { display: flex; }
+	}
+
+	@keyframes blink { 50% { opacity: 0; } }
+</style>
